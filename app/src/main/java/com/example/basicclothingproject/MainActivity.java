@@ -2,6 +2,8 @@ package com.example.basicclothingproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,16 +21,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btnLogin;
-    TextView textViewRegister;
-    EditText editTextEmail;
-    EditText editTextPassword;
+    private TabLayout tabLayout;
+    private ViewPager2 viewPager2;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -36,28 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogin = findViewById(R.id.btnLogin);
-        textViewRegister = findViewById(R.id.textViewRegister);
-        editTextEmail = findViewById(R.id.editTextEmail);
-        editTextPassword = findViewById(R.id.editTextPassword);
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                iniciarSesion("http://10.0.0.30/basic_clothing/login.php");
-            }
-        });
-
-        textViewRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ventanaRegister.class);
-                startActivity(intent);
-            }
-        });
     }
 
-    private void iniciarSesion(String URL){
+    /*private void iniciarSesion(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -78,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("email", editTextEmail.getText().toString());
-                parametros.put("password", editTextPassword.getText().toString());
+                parametros.put("email", loginEmail.getText().toString());
+                parametros.put("password", loginPassword.getText().toString());
                 return parametros;
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-    }
+    }*/
 }
