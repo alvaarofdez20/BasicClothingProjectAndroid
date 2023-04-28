@@ -28,8 +28,8 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager2 viewPager2;
+    private Button login_button_activity;
+    private Button signup_button_activity;
 
 
     @SuppressLint("MissingInflatedId")
@@ -38,36 +38,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        login_button_activity = findViewById(R.id.login_button_activity);
+        signup_button_activity = findViewById(R.id.signup_button_activity);
 
+        login_button_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        signup_button_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
+            }
+        });
     }
-
-    /*private void iniciarSesion(String URL){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                if (!response.isEmpty()) {
-                    Intent intent = new Intent(getApplicationContext(), Tienda.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MainActivity.this, "Email y/o contraseña incorrecta", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("email", loginEmail.getText().toString());
-                parametros.put("password", loginPassword.getText().toString());
-                return parametros;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }*/
 }
