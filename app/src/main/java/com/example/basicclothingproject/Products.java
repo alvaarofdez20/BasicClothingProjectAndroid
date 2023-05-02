@@ -2,16 +2,15 @@ package com.example.basicclothingproject;
 
 
 public class Products {
-    private String referencia, nombre, tipo;
+    private String referencia, nombre, tipo, talla;
     private Double precio;
-    private int cantidad;
 
-    public Products(String referencia, String nombre, String tipo, Double precio, int cantidad) {
+    public Products(String referencia, String nombre, String tipo, Double precio, String talla) {
         this.referencia = referencia;
         this.nombre = nombre;
         this.tipo = tipo;
         this.precio = precio;
-        this.cantidad = cantidad;
+        this.talla = talla;
     }
 
     public String getReferencia() {
@@ -46,11 +45,11 @@ public class Products {
         this.precio = precio;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public String getTalla() {
+        return talla;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setTalla(String talla) {
+        this.talla = talla;
     }
 }

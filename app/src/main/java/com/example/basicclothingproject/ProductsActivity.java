@@ -85,7 +85,7 @@ public class ProductsActivity extends AppCompatActivity {
                                 object.getString("nombre"),
                                 object.getString("tipo"),
                                 object.getDouble("precio"),
-                                object.getInt("cantidad")
+                                object.getString("talla")
                         ));
                     }
                     Adaptador adaptador = new Adaptador(getApplicationContext(), productsList);

@@ -39,7 +39,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
 
         viewHolder.textViewNombre.setText(products.getNombre());
         viewHolder.textViewReferencia.setText(products.getReferencia());
-        //viewHolder.textViewTalla.setText(products.getTalla());
+        viewHolder.textViewTalla.setText(products.getTalla());
         viewHolder.textViewPrecio.setText(String.valueOf(products.getPrecio()));
     }
 
@@ -57,7 +57,7 @@ public class Adaptador extends RecyclerView.Adapter<Adaptador.ViewHolder> {
             textViewNombre = (TextView) view.findViewById(R.id.textViewNombre);
             textViewReferencia = (TextView) view.findViewById(R.id.textViewReferencia);
             textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
-            //textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
+            textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             //imageView = (ImageView) view.findViewById(R.id.foto);
         }
     }
