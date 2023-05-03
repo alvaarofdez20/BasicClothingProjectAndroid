@@ -21,11 +21,6 @@ public class HomeActivity extends AppCompatActivity {
             switch(item.getItemId()){
                 case R.id.button_home:
                     return true;
-                case R.id.button_search:
-                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
                 case R.id.button_product:
                     startActivity(new Intent(getApplicationContext(), ProductsActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

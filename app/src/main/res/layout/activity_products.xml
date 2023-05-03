@@ -1,38 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ProductsActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/search_bar_bkg"
+            app:iconifiedByDefault="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:queryHint="Busca un producto..." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/listaProductos"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listaProductos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/navBar"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/navbar_bkg"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="30dp"
         android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/navbar_bkg"
         android:elevation="2dp"
-        app:menu="@menu/navbar_menu"
         app:itemIconSize="30dp"
         app:itemIconTint="@drawable/item_selector"
         app:itemRippleColor="@android:color/transparent"
-        app:labelVisibilityMode="unlabeled" />
+        app:labelVisibilityMode="unlabeled"
+        app:menu="@menu/navbar_menu" />
 
 </RelativeLayout>

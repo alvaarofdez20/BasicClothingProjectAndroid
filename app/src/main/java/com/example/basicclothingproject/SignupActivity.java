@@ -3,6 +3,7 @@ package com.example.basicclothingproject;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +45,6 @@ public class SignupActivity extends AppCompatActivity {
         signup_password = findViewById(R.id.signup_password);
         signup_conf = findViewById(R.id.signup_conf);
         signup_tfno = findViewById(R.id.signup_phone);
-        signup_date = findViewById(R.id.signup_date);
         signup_button = findViewById(R.id.signup_button);
 
         signup_button.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +63,8 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(SignupActivity.this, "CREDENCIALES VÁLIDAS", Toast.LENGTH_SHORT).show();
-
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override

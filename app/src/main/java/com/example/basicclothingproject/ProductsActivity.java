@@ -1,11 +1,13 @@
 package com.example.basicclothingproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -24,15 +26,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductsActivity extends AppCompatActivity {
+public class ProductsActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private RecyclerView recyclerView;
     private List<Products> productsList;
+    private SearchView searchView;
+    Adaptador adaptador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
+
+        // SEARCHVIEW
+        searchView = (SearchView) findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(this);
 
         // RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.listaProductos);
@@ -51,11 +59,6 @@ public class ProductsActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.button_home:
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    finish();
-                    return true;
-                case R.id.button_search:
-                    startActivity(new Intent(getApplicationContext(), SearchActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                     return true;
@@ -85,10 +88,11 @@ public class ProductsActivity extends AppCompatActivity {
                                 object.getString("nombre"),
                                 object.getString("tipo"),
                                 object.getDouble("precio"),
-                                object.getString("talla")
+                                object.getString("talla"),
+                                object.getString("img")
                         ));
                     }
-                    Adaptador adaptador = new Adaptador(getApplicationContext(), productsList);
+                    adaptador = new Adaptador(getApplicationContext(), productsList);
                     recyclerView.setAdapter(adaptador);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -102,5 +106,16 @@ public class ProductsActivity extends AppCompatActivity {
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adaptador.filtrar(newText);
+        return false;
     }
 }
