@@ -1,5 +1,6 @@
 package com.example.basicclothingproject;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,10 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,14 +24,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ProductsActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     private RecyclerView recyclerView;
     private List<Products> productsList;
     private SearchView searchView;
-    Adaptador adaptador;
+    AdaptadorProducts adaptadorProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +94,8 @@ public class ProductsActivity extends AppCompatActivity implements SearchView.On
                                 object.getString("img")
                         ));
                     }
-                    adaptador = new Adaptador(getApplicationContext(), productsList);
-                    recyclerView.setAdapter(adaptador);
+                    adaptadorProducts = new AdaptadorProducts(getApplicationContext(), productsList);
+                    recyclerView.setAdapter(adaptadorProducts);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +117,7 @@ public class ProductsActivity extends AppCompatActivity implements SearchView.On
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adaptador.filtrar(newText);
+        adaptadorProducts.filtrar(newText);
         return false;
     }
 }
