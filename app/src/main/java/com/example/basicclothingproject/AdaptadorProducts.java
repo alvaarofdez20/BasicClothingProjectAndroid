@@ -70,7 +70,6 @@ public class AdaptadorProducts extends RecyclerView.Adapter<AdaptadorProducts.Vi
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
         ImageView imageView;
-        Button btnCart;
 
         public ViewHolder(View view) {
             super(view);

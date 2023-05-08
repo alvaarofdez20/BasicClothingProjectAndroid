@@ -22,6 +22,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -79,43 +83,23 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
-        ImageView imageView;
-        Button btnCart;
+        private final TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
+        private final ImageView imageView;
+        private final Button btnRemove;
+        CartActivity c = new CartActivity();
 
         public ViewHolder(View view) {
             super(view);
-            textViewNombre = (TextView) view.findViewById(R.id.textViewNombre);
-            textViewReferencia = (TextView) view.findViewById(R.id.textViewReferencia);
-            textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
-            textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
-            imageView = (ImageView) view.findViewById(R.id.foto);
-            btnCart = (Button) view.findViewById(R.id.btnRemove);
-
-            btnCart.setOnClickListener(new View.OnClickListener() {
+            this.textViewNombre = (TextView) view.findViewById(R.id.textViewNombre);
+            this.textViewReferencia = (TextView) view.findViewById(R.id.textViewReferencia);
+            this.textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
+            this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
+            this.imageView = (ImageView) view.findViewById(R.id.foto);
+            this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
+            btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    StringRequest stringRequest = new StringRequest(Request.Method.POST, "URL", new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            //Toast.makeText(AdaptadorCart.this, "PRODUCTO AÑADIDO AL CARRITO", Toast.LENGTH_SHORT).show();
-                        }
-                    }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            //Toast.makeText(ProductsActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }) {
-                        @Nullable
-                        @Override
-                        protected Map<String, String> getParams() throws AuthFailureError {
-                            Map<String, String> parametros = new HashMap<String, String>();
-                            parametros.put("referencia", textViewReferencia.getText().toString());
-                            return parametros;
-                        }
-                    };
-                    //RequestQueue requestQueue = Volley.newRequestQueue(this);
-                    //requestQueue.add(stringRequest);
+                    c.eliminarDatos("");
                 }
             });
         }
