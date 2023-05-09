@@ -120,4 +120,10 @@ public class ProductsActivity extends AppCompatActivity implements SearchView.On
         adaptadorProducts.filtrar(newText);
         return false;
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
 }

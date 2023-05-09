@@ -85,8 +85,6 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
         private final ImageView imageView;
-        private final Button btnRemove;
-        CartActivity c = new CartActivity();
 
         public ViewHolder(View view) {
             super(view);
@@ -95,13 +93,6 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
             this.textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
             this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             this.imageView = (ImageView) view.findViewById(R.id.foto);
-            this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
-            btnRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    c.eliminarDatos("");
-                }
-            });
         }
     }
 }

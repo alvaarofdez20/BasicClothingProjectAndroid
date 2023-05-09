@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -23,8 +24,8 @@ import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText login_email;
-    private EditText login_password;
+    private EditText login_email, login_password;
+    private TextView textViewRegister;
     private Button login_button;
 
     @Override
@@ -35,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         login_email = findViewById(R.id.login_email);
         login_password = findViewById(R.id.login_password);
         login_button = findViewById(R.id.login_button);
+        textViewRegister = (TextView) findViewById(R.id.textViewRegister);
 
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +44,14 @@ public class LoginActivity extends AppCompatActivity {
                 iniciarSesion("http://10.0.0.30/basic_clothing/login.php");
                 // "http://192.168.1.76/basic_clothing/login.php"
                 // "http://10.0.0.30/basic_clothing/login.php"
+            }
+        });
+
+        textViewRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -74,5 +84,11 @@ public class LoginActivity extends AppCompatActivity {
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }

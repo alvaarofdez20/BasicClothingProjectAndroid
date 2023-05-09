@@ -113,23 +113,20 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(CartActivity.this, "PRODUCTO ELIMINADO", Toast.LENGTH_SHORT).show();
-                adaptadorCart.notifyDataSetChanged();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }) {
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("referencia", "1341123009_BEI_4");
-                return parametros;
-            }
-        };
+        });
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
     }
 }
