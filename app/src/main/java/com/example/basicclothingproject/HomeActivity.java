@@ -41,7 +41,7 @@ public class HomeActivity extends AppCompatActivity {
 
         productsList = new ArrayList<>();
 
-        mostrarRopa("http://10.0.0.30/basic_clothing/readRopa.php");
+        mostrarRopa("http://10.0.0.20/basic_clothing/readRopa.php");
 
         // RECYCLERVIEW CALZADO
         recyclerViewCalzado = (RecyclerView) findViewById(R.id.listaCalzado);
@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 
         productsList = new ArrayList<>();
 
-        mostrarCalzado("http://10.0.0.30/basic_clothing/readCalzado.php");
+        mostrarCalzado("http://10.0.0.20/basic_clothing/readCalzado.php");
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBar);
         bottomNavigationView.setSelectedItemId(R.id.button_home);

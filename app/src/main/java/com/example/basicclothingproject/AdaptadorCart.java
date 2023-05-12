@@ -63,20 +63,6 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         viewHolder.textViewPrecio.setText("Precio: " + String.valueOf(products.getPrecio()));
     }
 
-    public void filtrar(String nombre) {
-        if (nombre.length() == 0) {
-            productsList.clear();
-            productsList.addAll(productsListOriginal);
-        } else {
-            List<Products> lista = productsList.stream()
-                    .filter(i -> i.getNombre().toLowerCase().contains(nombre.toLowerCase()))
-                    .collect(Collectors.toList());
-            productsList.clear();
-            productsList.addAll(lista);
-        }
-        notifyDataSetChanged();
-    }
-
     @Override
     public int getItemCount() {
         return productsList.size();
@@ -85,6 +71,7 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
         private final ImageView imageView;
+        private final Button btnRemove;
 
         public ViewHolder(View view) {
             super(view);
@@ -93,6 +80,7 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
             this.textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
             this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             this.imageView = (ImageView) view.findViewById(R.id.foto);
+            this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
         }
     }
 }

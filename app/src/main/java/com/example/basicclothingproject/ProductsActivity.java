@@ -51,7 +51,7 @@ public class ProductsActivity extends AppCompatActivity implements SearchView.On
 
         productsList = new ArrayList<>();
 
-        mostrarDatos("http://10.0.0.30/basic_clothing/read.php");
+        mostrarDatos("http://10.0.0.20/basic_clothing/read.php");
 
         // FUNCIÓN PANEL DE NAVEGACIÓN
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBar);

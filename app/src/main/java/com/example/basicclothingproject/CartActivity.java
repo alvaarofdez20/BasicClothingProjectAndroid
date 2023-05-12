@@ -38,6 +38,8 @@ public class CartActivity extends AppCompatActivity {
     private List<Products> productsList;
     AdaptadorCart adaptadorCart;
 
+    private ProductActions productActions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +52,7 @@ public class CartActivity extends AppCompatActivity {
 
         productsList = new ArrayList<>();
 
-        mostrarDatos("http://10.0.0.30/basic_clothing/readCart.php");
+        mostrarDatos("http://10.0.0.20/basic_clothing/readCart.php");
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBar);
         bottomNavigationView.setSelectedItemId(R.id.button_cart);

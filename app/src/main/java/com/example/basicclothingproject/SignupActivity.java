@@ -51,9 +51,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                registro("http://10.0.0.30/basic_clothing/register.php");
-                // "http://192.168.1.76/basic_clothing/register.php"
-                // "http://10.0.0.30/basic_clothing/register.php"
+                registro("http://10.0.0.20/basic_clothing/register.php");
             }
         });
     }

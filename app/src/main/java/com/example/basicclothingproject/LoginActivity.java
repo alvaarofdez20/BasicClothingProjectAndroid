@@ -41,9 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                iniciarSesion("http://10.0.0.30/basic_clothing/login.php");
-                // "http://192.168.1.76/basic_clothing/login.php"
-                // "http://10.0.0.30/basic_clothing/login.php"
+                iniciarSesion("http://10.0.0.20/basic_clothing/login.php");
             }
         });
 
