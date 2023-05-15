@@ -38,6 +38,8 @@ public class CartActivity extends AppCompatActivity {
     private List<Products> productsList;
     AdaptadorCart adaptadorCart;
 
+    private ProductActions productActions;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

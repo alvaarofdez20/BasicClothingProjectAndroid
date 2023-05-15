@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,16 +28,14 @@ public class LoginActivity extends AppCompatActivity {
     private TextView textViewRegister;
     private Button login_button;
 
-    public String dni;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        login_email = (EditText) findViewById(R.id.login_email);
-        login_password = (EditText) findViewById(R.id.login_password);
-        login_button = (Button) findViewById(R.id.login_button);
+        login_email = findViewById(R.id.login_email);
+        login_password = findViewById(R.id.login_password);
+        login_button = findViewById(R.id.login_button);
         textViewRegister = (TextView) findViewById(R.id.textViewRegister);
 
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -62,8 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()) {
-                    dni = TextUtils.substring(response, 8, 17);
-                    System.out.println(dni);
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                 } else {
