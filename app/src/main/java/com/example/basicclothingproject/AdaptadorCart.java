@@ -68,10 +68,12 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         return productsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private final TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
         private final ImageView imageView;
         private final Button btnRemove;
+
+        private itemClickListener listener;
 
         public ViewHolder(View view) {
             super(view);
@@ -81,6 +83,15 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
             this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             this.imageView = (ImageView) view.findViewById(R.id.foto);
             this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
+        }
+
+        public void setOnClickListener(itemClickListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            listener.onClick(view, getAdapterPosition());
         }
     }
 }

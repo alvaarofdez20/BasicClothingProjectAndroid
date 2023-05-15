@@ -14,7 +14,7 @@
         android:background="@drawable/button_bkg">
 
         <ImageView
-            android:id="@+id/foto"
+            android:id="@+id/cartImg"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
@@ -31,7 +31,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textViewNombre"
+                android:id="@+id/cartNombre"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="NOMBRE"
@@ -39,7 +39,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewReferencia"
+                android:id="@+id/cartReferencia"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REFERENCIA"
@@ -47,7 +47,7 @@
                 tools:ignore="TextSizeCheck" />
 
             <TextView
-                android:id="@+id/textViewPrecio"
+                android:id="@+id/cartPrecio"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:text="PRECIO"
@@ -55,7 +55,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewTalla"
+                android:id="@+id/cartTalla"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:text="TALLA"
