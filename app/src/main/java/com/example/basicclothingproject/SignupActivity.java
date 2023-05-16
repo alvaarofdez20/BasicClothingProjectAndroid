@@ -60,9 +60,11 @@ public class SignupActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(SignupActivity.this, "CREDENCIALES VÁLIDAS", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent);
+                if (!response.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "CLIENTE REGISTRADO", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
+                }
             }
         }, new Response.ErrorListener() {
             @Override
