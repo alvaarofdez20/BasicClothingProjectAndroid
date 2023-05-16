@@ -36,24 +36,12 @@ public class CartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Products> productsList;
-    private AdaptadorCart adaptadorCart;
-    private Button btnRemove;
+    AdaptadorCart adaptadorCart;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
-        btnRemove = (Button) findViewById(R.id.btnCart);
-        btnRemove.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = 0;
-
-                adaptadorCart.eliminarProducto(position);
-            }
-        });
 
         // RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.listaProductosCarrito);
@@ -63,7 +51,6 @@ public class CartActivity extends AppCompatActivity {
         productsList = new ArrayList<>();
 
         mostrarDatos("http://10.0.0.20/basic_clothing/readCart.php");
-
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBar);
         bottomNavigationView.setSelectedItemId(R.id.button_cart);
@@ -118,6 +105,22 @@ public class CartActivity extends AppCompatActivity {
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void eliminarDatos(String URL) {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(CartActivity.this, "PRODUCTO ELIMINADO", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
 
