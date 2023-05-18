@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,12 +33,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity {
+public class CartActivity extends AppCompatActivity implements AdaptadorCart.DeleteItem{
 
     private RecyclerView recyclerView;
-    private List<Products> productsList;
-    AdaptadorCart adaptadorCart;
+    private List<Products> productsList = new ArrayList<>();
+    private AdaptadorCart adaptadorCart;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,11 @@ public class CartActivity extends AppCompatActivity {
 
         // RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.listaProductosCarrito);
+
+        adaptadorCart = new AdaptadorCart(getApplicationContext(), productsList);
+        adaptadorCart.setOnDeleteItem(CartActivity.this);
+        recyclerView.setAdapter(adaptadorCart);
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -119,7 +126,15 @@ public class CartActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<String, String>();
+                parametros.put("referencia", "1341123009_BEI_42");
+                return parametros;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
@@ -128,5 +143,10 @@ public class CartActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemClick(String referencia) {
+        eliminarDatos("http://10.0.0.20/basic_clothing/removeCart.php");
     }
 }

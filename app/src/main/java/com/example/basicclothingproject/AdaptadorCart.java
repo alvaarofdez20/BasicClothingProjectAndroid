@@ -1,5 +1,6 @@
 package com.example.basicclothingproject;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,13 +37,24 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
 
     private Context context;
     private List<Products> productsList;
-    private List<Products> productsListOriginal;
+    private DeleteItem deleteItem;
 
     public AdaptadorCart(Context context, List<Products> productsList) {
         this.context = context;
         this.productsList = productsList;
-        productsListOriginal = new ArrayList<>();
-        productsListOriginal.addAll(productsList);
+    }
+
+    public interface DeleteItem{
+        void onItemClick(String referencia);
+    }
+
+    public void setOnDeleteItem(DeleteItem listener){
+        this.deleteItem = listener;
+    }
+
+    public void eliminarItem(int position){
+        productsList.remove(position);
+        notifyItemRemoved(position);
     }
 
     @Override
@@ -52,7 +64,7 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, @SuppressLint("RecyclerView") int position) {
         Products products = productsList.get(position);
 
         Glide.with(context).load(products.getImage()).into(viewHolder.imageView);
@@ -68,30 +80,30 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         return productsList.size();
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         private final TextView textViewReferencia, textViewNombre, textViewTalla, textViewPrecio;
         private final ImageView imageView;
-        private final Button btnRemove;
-
-        private itemClickListener listener;
+        private Button btnRemove;
 
         public ViewHolder(View view) {
             super(view);
+
             this.textViewNombre = (TextView) view.findViewById(R.id.textViewNombre);
             this.textViewReferencia = (TextView) view.findViewById(R.id.textViewReferencia);
             this.textViewPrecio = (TextView) view.findViewById(R.id.textViewPrecio);
             this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             this.imageView = (ImageView) view.findViewById(R.id.foto);
             this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
-        }
-
-        public void setOnClickListener(itemClickListener listener){
-            this.listener = listener;
-        }
-
-        @Override
-        public void onClick(View view) {
-            listener.onClick(view, getAdapterPosition());
+            this.btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        Products products = productsList.get(position);
+                        deleteItem.onItemClick(products.getReferencia());
+                    }
+                }
+            });
         }
     }
 }
