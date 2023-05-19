@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewRopa, recyclerViewCalzado;
     private List<Products> productsList;
-    AdaptadorProducts adaptadorProducts;
+    private AdaptadorProducts adaptadorProducts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

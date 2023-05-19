@@ -37,24 +37,10 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
 
     private Context context;
     private List<Products> productsList;
-    private DeleteItem deleteItem;
 
     public AdaptadorCart(Context context, List<Products> productsList) {
         this.context = context;
         this.productsList = productsList;
-    }
-
-    public interface DeleteItem{
-        void onItemClick(String referencia);
-    }
-
-    public void setOnDeleteItem(DeleteItem listener){
-        this.deleteItem = listener;
-    }
-
-    public void eliminarItem(int position){
-        productsList.remove(position);
-        notifyItemRemoved(position);
     }
 
     @Override
@@ -73,6 +59,18 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         viewHolder.textViewReferencia.setText("Referencia: " + products.getReferencia());
         viewHolder.textViewTalla.setText("Talla: " + products.getTalla());
         viewHolder.textViewPrecio.setText("Precio: " + String.valueOf(products.getPrecio()));
+
+        viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String referencia = productsList.get(position).getReferencia();
+
+                eliminarProducto(referencia);
+
+                productsList.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
     }
 
     @Override
@@ -94,16 +92,40 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
             this.textViewTalla = (TextView) view.findViewById(R.id.textViewTalla);
             this.imageView = (ImageView) view.findViewById(R.id.foto);
             this.btnRemove = (Button) view.findViewById(R.id.btnRemove);
-            this.btnRemove.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION){
-                        Products products = productsList.get(position);
-                        deleteItem.onItemClick(products.getReferencia());
-                    }
-                }
-            });
         }
+    }
+
+    private void eliminarProducto(String referencia){
+        String URL = "http://10.0.0.20/basic_clothing/removeCart.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(context, "PRODUCTO ELIMINADO", Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "ERROR AL ELIMINAR", Toast.LENGTH_SHORT).show();
+            }
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("referencia", referencia);
+                return parametros;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
+    }
+    public Double totalPrecio(){
+        Double total = 0.0;
+        Double precio = 0.0;
+        for(int i = 0; i < productsList.size(); i++){
+            precio = productsList.get(i).getPrecio();
+            total = total + precio;
+        }
+        return total;
     }
 }

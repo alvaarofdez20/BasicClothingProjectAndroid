@@ -33,11 +33,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity implements AdaptadorCart.DeleteItem{
+public class CartActivity extends AppCompatActivity{
 
     private RecyclerView recyclerView;
     private List<Products> productsList = new ArrayList<>();
     private AdaptadorCart adaptadorCart;
+    private TextView textViewTotal;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -45,12 +46,10 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        textViewTotal = (TextView) findViewById(R.id.textViewTotal);
+
         // RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.listaProductosCarrito);
-
-        adaptadorCart = new AdaptadorCart(getApplicationContext(), productsList);
-        adaptadorCart.setOnDeleteItem(CartActivity.this);
-        recyclerView.setAdapter(adaptadorCart);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -86,8 +85,8 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
             @Override
             public void onResponse(String response) {
                 try {
+                    Double precioTotal = 0.0;
                     JSONArray array = new JSONArray(response);
-
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = (JSONObject) array.get(i);
                         productsList.add(new Products(
@@ -98,9 +97,11 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
                                 object.getString("talla"),
                                 object.getString("img")
                         ));
+                        precioTotal = precioTotal + productsList.get(i).getPrecio();
                     }
                     adaptadorCart = new AdaptadorCart(getApplicationContext(), productsList);
                     recyclerView.setAdapter(adaptadorCart);
+                    textViewTotal.setText(String.valueOf("SUBTOTAL: "+precioTotal+" "));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -115,7 +116,7 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
         requestQueue.add(stringRequest);
     }
 
-    public void eliminarDatos(String URL) {
+    public void eliminarDatos(String URL, String referencia) {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -131,7 +132,7 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("referencia", "1341123009_BEI_42");
+                parametros.put("referencia", referencia);
                 return parametros;
             }
         };
@@ -143,10 +144,5 @@ public class CartActivity extends AppCompatActivity implements AdaptadorCart.Del
     public void onBackPressed() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
-    }
-
-    @Override
-    public void onItemClick(String referencia) {
-        eliminarDatos("http://10.0.0.20/basic_clothing/removeCart.php");
     }
 }
