@@ -122,6 +122,7 @@ public class AdaptadorProducts extends RecyclerView.Adapter<AdaptadorProducts.Vi
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("referencia", referencia);
+                parametros.put("dni", LoginActivity.dni);
                 return parametros;
             }
         };

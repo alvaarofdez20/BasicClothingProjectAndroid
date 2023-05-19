@@ -111,7 +111,15 @@ public class CartActivity extends AppCompatActivity{
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        });
+        }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> parametros = new HashMap<>();
+                parametros.put("dni", LoginActivity.dni);
+                return parametros;
+            };
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }

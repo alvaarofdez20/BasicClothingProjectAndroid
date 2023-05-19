@@ -59,7 +59,6 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         viewHolder.textViewReferencia.setText("Referencia: " + products.getReferencia());
         viewHolder.textViewTalla.setText("Talla: " + products.getTalla());
         viewHolder.textViewPrecio.setText("Precio: " + String.valueOf(products.getPrecio()));
-
         viewHolder.btnRemove.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,14 +117,5 @@ public class AdaptadorCart extends RecyclerView.Adapter<AdaptadorCart.ViewHolder
         };
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
-    }
-    public Double totalPrecio(){
-        Double total = 0.0;
-        Double precio = 0.0;
-        for(int i = 0; i < productsList.size(); i++){
-            precio = productsList.get(i).getPrecio();
-            total = total + precio;
-        }
-        return total;
     }
 }
