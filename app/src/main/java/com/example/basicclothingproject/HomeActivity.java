@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -26,20 +28,25 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewRopa, recyclerViewCalzado;
-    private List<Products> productsList;
-    private AdaptadorProducts adaptadorProducts;
+    private List<Products> productsListRopa, productsListCalzado;
+    private AdaptadorProducts adaptadorProductsRopa, adaptadorProductsCalzado;
 
+    private TextView textViewNombre;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        textViewNombre = (TextView) findViewById(R.id.home_nombre);
+        textViewNombre.setText("Bienvenido, "+LoginActivity.nombre);
+
         // RECYCLERVIEW ROPA
         recyclerViewRopa = (RecyclerView) findViewById(R.id.listaRopa);
         recyclerViewRopa.setHasFixedSize(true);
         recyclerViewRopa.setLayoutManager(new LinearLayoutManager(this));
-
-        productsList = new ArrayList<>();
+        productsListRopa = new ArrayList<>();
 
         mostrarRopa("http://10.0.0.20/basic_clothing/readRopa.php");
 
@@ -47,8 +54,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewCalzado = (RecyclerView) findViewById(R.id.listaCalzado);
         recyclerViewCalzado.setHasFixedSize(true);
         recyclerViewCalzado.setLayoutManager(new LinearLayoutManager(this));
-
-        productsList = new ArrayList<>();
+        productsListCalzado = new ArrayList<>();
 
         mostrarCalzado("http://10.0.0.20/basic_clothing/readCalzado.php");
 
@@ -83,7 +89,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = (JSONObject) array.get(i);
-                        productsList.add(new Products(
+                        productsListRopa.add(new Products(
                                 object.getString("referencia"),
                                 object.getString("nombre"),
                                 object.getString("tipo"),
@@ -92,8 +98,8 @@ public class HomeActivity extends AppCompatActivity {
                                 object.getString("img")
                         ));
                     }
-                    adaptadorProducts = new AdaptadorProducts(getApplicationContext(), productsList);
-                    recyclerViewRopa.setAdapter(adaptadorProducts);
+                    adaptadorProductsRopa = new AdaptadorProducts(getApplicationContext(), productsListRopa);
+                    recyclerViewRopa.setAdapter(adaptadorProductsRopa);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -117,7 +123,7 @@ public class HomeActivity extends AppCompatActivity {
 
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = (JSONObject) array.get(i);
-                        productsList.add(new Products(
+                        productsListCalzado.add(new Products(
                                 object.getString("referencia"),
                                 object.getString("nombre"),
                                 object.getString("tipo"),
@@ -126,8 +132,8 @@ public class HomeActivity extends AppCompatActivity {
                                 object.getString("img")
                         ));
                     }
-                    adaptadorProducts = new AdaptadorProducts(getApplicationContext(), productsList);
-                    recyclerViewCalzado.setAdapter(adaptadorProducts);
+                    adaptadorProductsCalzado = new AdaptadorProducts(getApplicationContext(), productsListCalzado);
+                    recyclerViewCalzado.setAdapter(adaptadorProductsCalzado);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -28,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     private EditText login_email, login_password;
     private TextView textViewRegister;
     private Button login_button;
-
     public static String dni;
+    public static String nombre;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()) {
+                    System.out.println(response);
                     dni = TextUtils.substring(response, 8, 17);
+                    nombre = TextUtils.substring(response, 29, response.length() - 2);
                     Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(intent);
                 } else {

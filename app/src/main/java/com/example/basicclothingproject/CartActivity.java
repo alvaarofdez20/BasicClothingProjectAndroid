@@ -2,14 +2,12 @@ package com.example.basicclothingproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,12 +31,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CartActivity extends AppCompatActivity{
+public class CartActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<Products> productsList = new ArrayList<>();
     private AdaptadorCart adaptadorCart;
     private TextView textViewTotal;
+    private Button buttonComprar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -46,7 +45,9 @@ public class CartActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
+        // ASIGNACIÓN DE IDENTIFICADORES
         textViewTotal = (TextView) findViewById(R.id.textViewTotal);
+        buttonComprar = (Button) findViewById(R.id.btnCart);
 
         // RECYCLERVIEW
         recyclerView = (RecyclerView) findViewById(R.id.listaProductosCarrito);
@@ -58,11 +59,12 @@ public class CartActivity extends AppCompatActivity{
 
         mostrarDatos("http://10.0.0.20/basic_clothing/readCart.php");
 
+        // ACCIONES MENÚ
         BottomNavigationView bottomNavigationView = findViewById(R.id.navBar);
         bottomNavigationView.setSelectedItemId(R.id.button_cart);
 
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()){
+            switch (item.getItemId()) {
                 case R.id.button_home:
                     startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -77,6 +79,15 @@ public class CartActivity extends AppCompatActivity{
                     return true;
             }
             return false;
+        });
+
+        // ACCIÓN BOTÓN FINALIZAR COMPRA
+        buttonComprar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), EnvioActivity.class);
+                startActivity(intent);
+            }
         });
     }
 
@@ -101,7 +112,7 @@ public class CartActivity extends AppCompatActivity{
                     }
                     adaptadorCart = new AdaptadorCart(getApplicationContext(), productsList);
                     recyclerView.setAdapter(adaptadorCart);
-                    textViewTotal.setText(String.valueOf("SUBTOTAL: "+precioTotal+" "));
+                    textViewTotal.setText(String.valueOf("SUBTOTAL: " + precioTotal + " "));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -111,40 +122,18 @@ public class CartActivity extends AppCompatActivity{
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
             }
-        }){
+        }) {
             @Nullable
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("dni", LoginActivity.dni);
                 return parametros;
-            };
+            }
+
+            ;
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
-
-    public void eliminarDatos(String URL, String referencia) {
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(CartActivity.this, "PRODUCTO ELIMINADO", Toast.LENGTH_SHORT).show();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(CartActivity.this, error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> parametros = new HashMap<String, String>();
-                parametros.put("referencia", referencia);
-                return parametros;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
 

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,9 +29,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText signup_apellidos;
     private EditText signup_email;
     private EditText signup_password;
-    private EditText signup_conf;
     private EditText signup_tfno;
-    private EditText signup_date;
     private Button signup_button;
 
     @Override
@@ -38,19 +37,17 @@ public class SignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
-        signup_dni = findViewById(R.id.signup_dni);
-        signup_nombre = findViewById(R.id.signup_nombre);
-        signup_apellidos = findViewById(R.id.signup_apellidos);
-        signup_email = findViewById(R.id.signup_email);
-        signup_password = findViewById(R.id.signup_password);
-        signup_conf = findViewById(R.id.signup_conf);
-        signup_tfno = findViewById(R.id.signup_phone);
-        signup_button = findViewById(R.id.signup_button);
+        signup_dni = (EditText) findViewById(R.id.signup_dni);
+        signup_nombre = (EditText) findViewById(R.id.signup_nombre);
+        signup_apellidos = (EditText) findViewById(R.id.signup_apellidos);
+        signup_email = (EditText) findViewById(R.id.signup_email);
+        signup_password = (EditText) findViewById(R.id.signup_password);
+        signup_tfno = (EditText) findViewById(R.id.signup_phone);
+        signup_button = (Button) findViewById(R.id.signup_button);
 
         signup_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 registro("http://10.0.0.20/basic_clothing/register.php");
             }
         });
@@ -60,7 +57,7 @@ public class SignupActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                if (!response.isEmpty()){
+                if (!response.isEmpty()) {
                     Toast.makeText(SignupActivity.this, "CLIENTE REGISTRADO", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);

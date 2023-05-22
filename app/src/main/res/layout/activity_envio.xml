@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/mainbkg"
-    tools:context=".SignupActivity">
+    tools:context=".EnvioActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="635dp"
+            android:layout_height="587dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/edittext_bkg"
             android:orientation="vertical"
@@ -27,102 +27,74 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Registro"
+                android:text="1. Dirección de envío"
                 android:textAlignment="center"
                 android:textColor="@color/purple"
-                android:textSize="36sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Basic Clothing Project"
-                android:textAlignment="center"
-                android:textColor="@color/purple"
-                android:textSize="20sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/signup_dni"
+                android:id="@+id/envio_nombreApellidos"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_dni_24"
                 android:drawablePadding="8dp"
-                android:hint="DNI"
+                android:hint="Nombre y apellidos"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/signup_nombre"
+                android:id="@+id/envio_cp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_name_24"
                 android:drawablePadding="8dp"
-                android:hint="Nombre"
+                android:hint="Código Postal"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/signup_apellidos"
+                android:id="@+id/envio_direccion"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_name_24"
                 android:drawablePadding="8dp"
-                android:hint="Apellidos"
+                android:hint="Dirección (Dirección, Número, Piso)"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/signup_email"
+                android:id="@+id/envio_poblacion"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_email_24"
                 android:drawablePadding="8dp"
-                android:hint="Correo electrónico"
+                android:hint="Población"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <EditText
-                android:id="@+id/signup_password"
+                android:id="@+id/envio_provincia"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawablePadding="8dp"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:padding="8dp"
-                android:textColor="@color/black" />
-
-
-            <EditText
-                android:id="@+id/signup_phone"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/baseline_phone_iphone_24"
-                android:drawablePadding="8dp"
-                android:hint="Teléfono"
+                android:hint="Provincia"
                 android:padding="8dp"
                 android:textColor="@color/black" />
 
             <Button
-                android:id="@+id/signup_button"
+                android:id="@+id/envio_button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/purple"
-                android:text="REGISTRARSE"
+                android:text="SIGUIENTE"
                 android:textSize="18sp"
                 app:cornerRadius="20dp" />
 
