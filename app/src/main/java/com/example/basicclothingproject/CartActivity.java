@@ -36,7 +36,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private List<Products> productsList = new ArrayList<>();
     private AdaptadorCart adaptadorCart;
-    private TextView textViewTotal;
+    private TextView textViewSubtotal, textViewEnvio, textViewTotal;
     private Button buttonComprar;
 
     @SuppressLint("MissingInflatedId")
@@ -46,7 +46,9 @@ public class CartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_cart);
 
         // ASIGNACIÓN DE IDENTIFICADORES
-        textViewTotal = (TextView) findViewById(R.id.textViewTotal);
+        textViewSubtotal = (TextView) findViewById(R.id.subtotal);
+        textViewEnvio = (TextView) findViewById(R.id.envio);
+        textViewTotal = (TextView) findViewById(R.id.totalapagar);
         buttonComprar = (Button) findViewById(R.id.btnCart);
 
         // RECYCLERVIEW
@@ -96,6 +98,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 try {
+                    Double precioProductos = 0.0;
                     Double precioTotal = 0.0;
                     JSONArray array = new JSONArray(response);
                     for (int i = 0; i < array.length(); i++) {
@@ -108,11 +111,14 @@ public class CartActivity extends AppCompatActivity {
                                 object.getString("talla"),
                                 object.getString("img")
                         ));
-                        precioTotal = precioTotal + productsList.get(i).getPrecio();
+                        precioProductos = precioProductos + productsList.get(i).getPrecio();
                     }
+                    precioTotal = precioProductos + 5;
+
                     adaptadorCart = new AdaptadorCart(getApplicationContext(), productsList);
                     recyclerView.setAdapter(adaptadorCart);
-                    textViewTotal.setText(String.valueOf("SUBTOTAL: " + precioTotal + " "));
+                    textViewSubtotal.setText(String.valueOf(precioProductos + "€"));
+                    textViewTotal.setText(String.valueOf(precioTotal + "€"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -130,8 +136,6 @@ public class CartActivity extends AppCompatActivity {
                 parametros.put("dni", LoginActivity.dni);
                 return parametros;
             }
-
-            ;
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
